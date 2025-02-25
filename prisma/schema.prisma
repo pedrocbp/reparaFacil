@@ -23,3 +23,16 @@ model Customer {
 
   @@map("customers")
 }
+
+model Solicitacoes {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  description String
+  solicitation_date DateTime ? @default(now())
+  status Boolean
+  morador String
+  responsavel Int
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  @@map("solicitacoes")
+}
