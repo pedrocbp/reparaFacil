@@ -4,10 +4,11 @@ interface UpdateCustomerProps {
     id: string;
     name?: string;
     email?: string;
+    type?: string;
 }
 
 class UpdateCustomerService {
-    async execute({ id, name, email }: UpdateCustomerProps) {
+    async execute({ id, name, email, type }: UpdateCustomerProps) {
 
         if (!id) {
             throw new Error("Solicitação inválida: ID é obrigatório.");
@@ -29,7 +30,8 @@ class UpdateCustomerService {
             },
             data: { 
                 name: name, 
-                email: email 
+                email: email,
+                type: type
             }
 
         });
