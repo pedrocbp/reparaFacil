@@ -14,7 +14,7 @@ class UpdateCustomerService {
             throw new Error("Solicitação inválida: ID é obrigatório.");
         }
 
-        const findCustomer = await prismaClient.customer.findFirst({
+        const findCustomer = await prismaClient.users.findFirst({
             where: { 
                 id: id 
             }
@@ -24,7 +24,7 @@ class UpdateCustomerService {
             throw new Error("Cliente não encontrado!");
         }
 
-        await prismaClient.customer.update({
+        await prismaClient.users.update({
             where: { 
                 id: id 
             },

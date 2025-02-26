@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Customer {
+model Users {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String
   email String
@@ -22,10 +22,10 @@ model Customer {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  @@map("customers")
+  @@map("users")
 }
 
-model Solicitacoes {
+model Requests {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   description String
   solicitation_date DateTime ? @default(now())
@@ -35,5 +35,5 @@ model Solicitacoes {
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
-  @@map("solicitacoes")
+  @@map("requests")
 }

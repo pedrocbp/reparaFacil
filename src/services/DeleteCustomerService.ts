@@ -11,7 +11,7 @@ class DeleteCustomerService {
         if(!id){
             throw new Error('Solicitação inválida');
         }
-        const findCustomer = await prismaClient.customer.findFirst({
+        const findCustomer = await prismaClient.users.findFirst({
             where: {
                 id: id
             }
@@ -21,7 +21,7 @@ class DeleteCustomerService {
             throw new Error('Cliente não encontrado!');
         }
 
-        await prismaClient.customer.delete({
+        await prismaClient.users.delete({
             where: {
                 id: id
             }

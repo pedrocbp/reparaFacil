@@ -8,9 +8,9 @@ class CreateCustomerController{
         console.log(name, email, type);
         const customerService = new CreateCustomerService();
 
-        const customer = await customerService.execute({name, email, type});
+        const users = await customerService.execute({name, email, type});
 
-        replay.send(customer);
+        replay.send(users);
 
     }
 }
