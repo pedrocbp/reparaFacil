@@ -1,23 +1,23 @@
 import prismaClient from "../prisma";
 
-interface DeleteCustomerProps{
-    id: string;
+interface DeleteUserProps{
+    id: number;
 
 }
 
-class DeleteCustomerService {
-    async execute({ id }: DeleteCustomerProps){
+class DeleteUserService {
+    async execute({ id }: DeleteUserProps){
 
         if(!id){
             throw new Error('Solicitação inválida');
         }
-        const findCustomer = await prismaClient.users.findFirst({
+        const findUser = await prismaClient.users.findFirst({
             where: {
                 id: id
             }
         })
 
-        if(!findCustomer){
+        if(!findUser){
             throw new Error('Cliente não encontrado!');
         }
 
@@ -30,4 +30,4 @@ class DeleteCustomerService {
         return { message: 'Cliente deletado com sucesso!' }
     }
 }
-export { DeleteCustomerService }
+export { DeleteUserService }
