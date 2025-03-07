@@ -1,25 +1,28 @@
-import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply} from 'fastify'
-import { CreateUserController } from './controllers/CreateUserController';
-import { ListUsersController } from './controllers/ListUsersController';
-import { DeleteUserController } from './controllers/DeleteUserController';
-import { UpdateUserController } from './controllers/UpdateUserController';
+import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } from 'fastify';
+import { UserController } from './controllers/UserController'; // Importando o controller unificado
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
+    const userController = new UserController(); // Instanciando o controller
+
+    // Rota para criar um usuário
     fastify.post('/users', async (request: FastifyRequest, reply: FastifyReply) => {
-        return new CreateUserController().handle(request, reply);
-    })
+        return userController.create(request, reply); // Chama o método create
+    });
 
+    // Rota para listar os usuários
     fastify.get('/users', async (request: FastifyRequest, reply: FastifyReply) => {
-        return new ListUsersController().handle(request, reply);
-    })
+        return userController.list(request, reply); // Chama o método list
+    });
 
+    // Rota para deletar um usuário
     fastify.delete('/users', async (request: FastifyRequest, reply: FastifyReply) => {
-        return new DeleteUserController().handle(request, reply);
-    })
+        return userController.delete(request, reply); // Chama o método delete
+    });
 
+    // Rota para atualizar um usuário
     fastify.put('/users', async (request: FastifyRequest, reply: FastifyReply) => {
-        return new UpdateUserController().handle(request, reply);
-    })
+        return userController.update(request, reply); // Chama o método update
+    });
 
 }
