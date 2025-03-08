@@ -14,9 +14,26 @@ class CondominioController {
     async list(request: FastifyRequest, reply: FastifyReply){
         const listCondominioService = new CondominioService();
 
-        const users = await listCondominioService.list();
+        const condominios = await listCondominioService.list();
 
-        reply.send(users);
+        reply.send(condominios);
+    }
+
+    async update(request: FastifyRequest, reply: FastifyReply){
+        const { id } = request.query as { id: number};
+        const { name, bairro, rua, numero, cep, cidade, status } = request.body as { name?: string, bairro?: string, rua?: string, numero?: string, cep?: string, cidade?: string, status?: boolean};
+        
+        const condominios = await new CondominioService().update({id, name, bairro, rua, numero, cep, cidade, status});
+
+        reply.send(condominios);
+    }
+
+    async delete(request: FastifyRequest, reply: FastifyReply) {
+        const { id } = request.query as { id: number};
+        
+        const condominios = await new CondominioService().delete({ id });
+        
+        reply.send(condominios);
     }
 }
 export { CondominioController };

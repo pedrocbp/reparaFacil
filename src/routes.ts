@@ -37,4 +37,14 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.get('/condominios', async (request: FastifyRequest, reply: FastifyReply) => {
         return condominioController.list(request, reply);
     })
+
+    // Rota para atualizar condominios
+    fastify.put('/condominios', async (request: FastifyRequest, reply: FastifyReply) => {
+        return condominioController.update(request, reply);
+    })
+
+    // Rota para deletar condominios
+    fastify.delete('/condominios', async (request: FastifyRequest, reply: FastifyReply) => {
+        return condominioController.delete(request, reply);
+    })
 }
