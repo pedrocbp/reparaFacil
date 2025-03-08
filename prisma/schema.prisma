@@ -36,6 +36,7 @@ model Condominios {
   numero      String
   cep         String
   cidade      String
+  blocos      Blocos[]
   status      Boolean  @default(true)
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
@@ -43,3 +44,14 @@ model Condominios {
   @@map("condominios")
 }
 
+model Blocos {
+  id           Int      @id @default(autoincrement())
+  name         String
+  condominioId Int
+  condominios Condominios @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+  status      Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map("blocos")
+}
