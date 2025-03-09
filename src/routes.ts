@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } from 'fastify';
 import { UserController } from './controllers/UserController'; // Importando o controller unificado
 import { CondominioController } from './controllers/CondominioController';
+import { BlocoController } from './controllers/BlocoController';
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -46,5 +47,27 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     // Rota para deletar condominios
     fastify.delete('/condominios', async (request: FastifyRequest, reply: FastifyReply) => {
         return condominioController.delete(request, reply);
+    })
+
+    const blocoController = new BlocoController();
+
+    // Rota para cadastrar um bloco
+    fastify.post('/blocos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return blocoController.create(request, reply);
+    })
+
+    // Rota para listar blocos
+    fastify.get('/blocos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return blocoController.list(request, reply);
+    })
+
+    // Rota para atualizar um bloco
+    fastify.put('/blocos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return blocoController.update(request, reply);
+    })
+
+    // Rota para deletar um bloco
+    fastify.delete('/blocos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return blocoController.delete(request, reply);
     })
 }
