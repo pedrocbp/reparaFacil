@@ -10,5 +10,13 @@ class ApartamentoController {
 
         reply.send(apartamento);
     }
+
+    async list(request: FastifyRequest, reply: FastifyReply){
+        const listApartamentoService = new ApartamentoService();
+
+        const apartamento = await listApartamentoService.list();
+
+        reply.send(apartamento);
+    }
 }
 export { ApartamentoController };
