@@ -78,4 +78,9 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     fastify.post('/apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
         return apartamentoController.create(request, reply);
     })
+
+    // Rota para listar apartamentos
+    fastify.get('/apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return apartamentoController.list(request, reply);
+    })
 }
