@@ -19,5 +19,10 @@ class ApartamentoService {
         })
         return apartamento;
     }
+
+    async list() {
+        const apartamento = await prismaClient.apartamentos.findMany();
+        return apartamento;
+    }
 }
 export { ApartamentoService };
