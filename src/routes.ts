@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } f
 import { UserController } from './controllers/UserController'; // Importando o controller unificado
 import { CondominioController } from './controllers/CondominioController';
 import { BlocoController } from './controllers/BlocoController';
+import { ApartamentoController } from './controllers/ApartamentoController';
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -69,5 +70,12 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     // Rota para deletar um bloco
     fastify.delete('/blocos', async (request: FastifyRequest, reply: FastifyReply) => {
         return blocoController.delete(request, reply);
+    })
+
+    const apartamentoController = new ApartamentoController();
+
+    // Rota para cadastrar um apartamento
+    fastify.post('/apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return apartamentoController.create(request, reply);
     })
 }
