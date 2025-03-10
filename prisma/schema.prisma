@@ -50,8 +50,21 @@ model Blocos {
   condominioId Int
   condominios Condominios @relation(fields: [condominioId], references: [id], onDelete: Cascade)
   status      Boolean  @default(true)
+  apartamentos Apartamentos[]
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
   @@map("blocos")
+}
+
+model Apartamentos {
+  id Int @id @default(autoincrement())
+  name String
+  blocoId Int
+  blocos Blocos @relation(fields: [blocoId], references: [id], onDelete: Cascade)
+  status Boolean @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("apartamentos")
 }
