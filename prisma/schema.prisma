@@ -22,6 +22,7 @@ model Users {
   status              Boolean  @default(true)
   telefone            String
   numero_do_documento String
+  apartamentos        UsersApartamentos[]
   created_at          DateTime @default(now())
   updated_at          DateTime @updatedAt
 
@@ -45,26 +46,39 @@ model Condominios {
 }
 
 model Blocos {
-  id           Int      @id @default(autoincrement())
-  name         String
-  condominioId Int
-  condominios Condominios @relation(fields: [condominioId], references: [id], onDelete: Cascade)
-  status      Boolean  @default(true)
-  apartamentos Apartamentos[]
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  name          String
+  condominioId  Int
+  condominios   Condominios @relation(fields: [condominioId], references: [id], onDelete: Cascade)
+  status        Boolean  @default(true)
+  apartamentos  Apartamentos[]
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
   @@map("blocos")
 }
 
 model Apartamentos {
-  id Int @id @default(autoincrement())
-  name String
-  blocoId Int
-  blocos Blocos @relation(fields: [blocoId], references: [id], onDelete: Cascade)
-  status Boolean @default(true)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  name        String
+  blocoId     Int
+  blocos      Blocos    @relation(fields: [blocoId], references: [id], onDelete: Cascade)
+  status      Boolean   @default(true)
+  users       UsersApartamentos[]
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
 
   @@map("apartamentos")
+}
+
+model UsersApartamentos {
+  id            Int       @id @default(autoincrement())
+  userId        Int
+  apartamentoId Int
+  user          Users      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  apartamento   Apartamentos @relation(fields: [apartamentoId], references: [id], onDelete: Cascade)
+  created_at    DateTime  @default(now())
+
+  @@unique([userId, apartamentoId])
+  @@map("users_apartamentos")
 }
