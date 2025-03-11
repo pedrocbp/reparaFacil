@@ -28,5 +28,13 @@ class ApartamentoController {
 
         reply.send(apartamento)
     }
+
+    async delete(request: FastifyRequest, reply: FastifyReply){
+        const {id} = request.query as {id: number}
+        
+        const apartamento = await new ApartamentoService().delete({id})
+
+        reply.send(apartamento)
+    }
 }
 export { ApartamentoController };
