@@ -5,6 +5,13 @@ interface CreateApartamentoProps {
     blocoId: number;
 }
 
+interface UpdateApartamentoProps {
+    id: number;
+    name?: string;
+    blocoId?: number;
+    status?: boolean;
+}
+
 class ApartamentoService {
     async create({ name, blocoId }: CreateApartamentoProps) {
         if(!name || !blocoId){
@@ -23,6 +30,36 @@ class ApartamentoService {
     async list() {
         const apartamento = await prismaClient.apartamentos.findMany();
         return apartamento;
+    }
+
+    async update({ id, name, blocoId, status}: UpdateApartamentoProps) {
+        if(!name){
+            throw new Error("Solicitação inválida: ID é obrigatório.");
+        }
+
+        const findApartamento = await prismaClient.apartamentos.findFirst({
+            where:{
+                id: Number(id)
+            }
+        })
+
+        if(!findApartamento){
+            throw new Error("Apartamento não encontrado")
+        }
+
+        await prismaClient.apartamentos.update({
+            where:{
+                id: Number(id)
+            },
+            data:{
+                name: name,
+                blocoId: blocoId,
+                status: status
+            }
+        });
+        return { message: `Apartamento [${id}] atualizado com sucesso`}
+
+        
     }
 }
 export { ApartamentoService };
