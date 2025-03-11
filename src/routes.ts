@@ -3,6 +3,7 @@ import { UserController } from './controllers/UserController'; // Importando o c
 import { CondominioController } from './controllers/CondominioController';
 import { BlocoController } from './controllers/BlocoController';
 import { ApartamentoController } from './controllers/ApartamentoController';
+import { request } from 'http';
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -87,5 +88,10 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     // Rota para atualizar um apartamento
     fastify.put('/apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
         return apartamentoController.update(request, reply)
+    })
+
+    // Rota para deletar um apartamento
+    fastify.delete('/apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return apartamentoController.delete(request, reply)
     })
 }
