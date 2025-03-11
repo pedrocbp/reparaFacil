@@ -12,6 +12,10 @@ interface UpdateApartamentoProps {
     status?: boolean;
 }
 
+interface DeleteApartamentoProps {
+    id: number
+}
+
 class ApartamentoService {
     async create({ name, blocoId }: CreateApartamentoProps) {
         if(!name || !blocoId){
@@ -58,8 +62,32 @@ class ApartamentoService {
             }
         });
         return { message: `Apartamento [${id}] atualizado com sucesso`}
+    }
 
-        
+    async delete({ id }: DeleteApartamentoProps) {
+        if(!id){
+            throw new Error("Solicitação inválida: ID é obrigatório.");
+        }
+
+        const findApartamento = await prismaClient.apartamentos.findFirst({
+            where:{
+                id: Number(id)
+            }
+        });
+
+        if(!findApartamento){
+            throw new Error("Condomínio não encontrado!")
+        }
+
+        await prismaClient.apartamentos.delete({
+            where:{
+                id: Number(id)
+            }
+        });
+
+        return { message: `Apartamento [${id}] deletado com sucesso!`}
+
+
     }
 }
 export { ApartamentoService };
