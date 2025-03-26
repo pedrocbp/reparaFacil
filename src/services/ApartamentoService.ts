@@ -37,7 +37,7 @@ class ApartamentoService {
     }
 
     async update({ id, name, blocoId, status}: UpdateApartamentoProps) {
-        if(!name){
+        if(!id){
             throw new Error("Solicitação inválida: ID é obrigatório.");
         }
 

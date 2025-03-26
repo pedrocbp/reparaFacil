@@ -4,6 +4,7 @@ import { CondominioController } from './controllers/CondominioController';
 import { BlocoController } from './controllers/BlocoController';
 import { ApartamentoController } from './controllers/ApartamentoController';
 import { request } from 'http';
+import { UsersApartamentosController } from './controllers/UsersApartamentosController';
 
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
@@ -93,5 +94,27 @@ export async function routes(fastify: FastifyInstance, options: FastifyPluginOpt
     // Rota para deletar um apartamento
     fastify.delete('/apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
         return apartamentoController.delete(request, reply)
+    })
+
+    const usersApartamentosController = new UsersApartamentosController();
+
+    // Rota para cadastrar uma relação
+    fastify.post('/user-apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return usersApartamentosController.create(request, reply);
+    })
+
+    // Rota para listar todas as relaçoes
+    fastify.get('/user-apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return usersApartamentosController.list(request, reply);
+    })
+
+    // Rota para atualizar uma relação
+    fastify.put('/user-apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return usersApartamentosController.update(request, reply)
+    })
+
+    // Rota para deletar uma relação
+    fastify.delete('/user-apartamentos', async (request: FastifyRequest, reply: FastifyReply) => {
+        return usersApartamentosController.delete(request, reply)
     })
 }
